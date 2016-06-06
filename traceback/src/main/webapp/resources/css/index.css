@@ -1,0 +1,25 @@
+body{background-color: #e1e1e1;font-size:62.5%}
+.bodybg{background-color: #ffffff;/*width:75%;max-width:1000px;*/width: 100%; position: relative;margin: 0 auto;padding-bottom: 18px;overflow: hidden;}
+/*头图*/
+.header{width: 100%;height: 60px;background: url(../images/logo.png) no-repeat;background-position: 30px 4px;background-color: #1f76c1;background-size:contain;}
+
+/*地址导航*/
+.nav_box{width: 100%;height: 40px;background: url(../images/bg_line.png) repeat-x;color: #ffffff;font-size: 1.6em;line-height: 40px;}
+.nav_box .nav{margin-left: 30px;}
+.nav span{color: #FFFFFF;}
+.nav .home{background: url(../images/house.png) no-repeat left center;color: #cbcbcb;padding-left:25px ;}
+/*列表*/
+.bodybg h1{font: bold 2.8em  "微软雅黑";color: #535353;text-align: center;margin-top: 20px;margin-bottom: 24px;}
+
+.bodybg table{width: 100%;border: 1px solid #e1e1e1;margin: 0 auto;text-align: center;color: #535353;}
+.bodybg table th{font: 2.2em/50px "微软雅黑";border: 1px solid #e1e1e1;text-align: center;}
+.bodybg table td{border: 1px solid #e1e1e1;font-size: 2em;line-height: 38px;}
+.bodybg table td img{margin-right: 4px;}
+.bodybg table td span,.bodybg table td em{color: #1f76c1;}
+
+.lb_btn{height: 30px;margin-right: 15px; margin-top: 16px;float: right;overflow: hidden;}
+.lb_btn span{line-height: 22px;border: 1px solid #E0E0E0;background-color: #fff;width: 22px;height: 22px;font-size: 11px;color: #000;cursor: pointer;display: block;float: left;text-align: center;margin-left:5px ;color: #398ecd;}
+
+.lb_btn em{line-height: 22px;border: 1px solid #E0E0E0;background-color: #fff;width: 67px;height: 22px;font-size: 11px;color: #000;cursor: pointer;display: block;float: left;text-align: center;margin-left:5px ;color: #398ecd;}
+.lb_btn .lbbtn_on{color: #010a1e;background-color:#eeeeee ;}
+.lb_btn span:hover,.lb_btn span:active,.lb_btn em:hover,.lb_btn em:active{background-color: #eeeeee;}

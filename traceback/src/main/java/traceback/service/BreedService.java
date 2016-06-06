@@ -6,5 +6,8 @@ import traceback.model.Breed;
 
 public interface BreedService
 {
+  
    List<Breed>  queryAllBreed();
+   
+   List<Breed>   queryServerBreed();
 }

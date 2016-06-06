@@ -10,11 +10,13 @@
 </head>
 <body>
 
+<p>-------local-----------</p>
 <c:forEach var="breed"  items="${breedList}">
-
 ${breed.wid }---------${breed.breedName }<br>
-
 </c:forEach>
-
+<p>-------server-----------</p>
+<c:forEach var="breed"  items="${breedList2}">
+${breed.wid}---------${breed.breedName}<br>
+</c:forEach>
 </body>
 </html>

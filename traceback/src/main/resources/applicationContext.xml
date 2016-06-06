@@ -1,5 +1,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:task="http://www.springframework.org/schema/task"
+    xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
@@ -9,29 +11,49 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop  
+        http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd">
 
-	<context:component-scan base-package="traceback" />
-
+    <aop:aspectj-autoproxy/>  
+         
+    <!-- 自动扫描注解的bean added by zhy-->
+	<context:component-scan base-package="traceback.*" />
+	<context:component-scan base-package="traceback.synchronization.*" />
+    <task:annotation-driven/>
 
 	<!-- 定义数据源 -->
 
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+	<bean id="localDataSource" class="org.apache.commons.dbcp2.BasicDataSource"  destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://10.0.1.104:3369/fd_traceback" />
 		<property name="username" value="root" />
 		<property name="password" value="oracle" />
 	</bean>
 
+
+<!--
+   <bean id="serverDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@218.94.83.205:1521:orcl102" />
+		
+		<property name="username" value="usr_dtmn" />
+		<property name="password" value="usr_dtmn" />
+	</bean>
+	-->
+	
+	
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+<!-- 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.show_sql">false</prop>
 			</props>
 		</property>
 	   <property name="packagesToScan">
@@ -42,6 +64,18 @@
 		<!-- 注解方式配置hibernate bean -->
 	</bean>
 
+    <bean id="dataSource" class="traceback.datasource.InstanceDataSource">
+	<property name="targetDataSources">  
+		  <map key-type="java.lang.String">  
+			  <!-- write -->
+			 <entry key="local" value-ref="localDataSource"/>  
+			 <!-- read -->
+<!-- 			 <entry key="server" value-ref="serverDataSource"/>   -->
+		  </map>  
+		  
+	</property>  
+	<property name="defaultTargetDataSource" ref="localDataSource"/>  
+</bean>
 
 	<!--hibernateTemplate -->
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
